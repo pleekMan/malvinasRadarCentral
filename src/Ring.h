@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "ofMain.h"
+#include "ofxAnimatableFloat.h"
 
 #endif /* defined(__malvinasRadarCentral__Ring__) */
 
@@ -21,21 +22,25 @@ public:
     Ring(){};
     
     void setup(string imagePath, ofPoint _ringCenter, float _radius);
-    void update();
+    void update(int mX, int mY);
     void draw();
     
     void setVelocity(float _angularVelocity);
+    void setAngle(float degrees);
     bool inside(ofPoint pointer);
-    void setActive(bool _active);
-    bool isActive();
+    void setDragging(bool _dragging);
+    bool isDragging();
     
     ofPoint ringCenter;
     float angle;
+    ofxAnimatableFloat angleTweener;
+    float angleDragOffset;
     float halfAngularLimit;
+    float normalVelocity;
     float velocity;
     float radius;
     ofImage ringImage;
-    bool active;
+    bool dragging = false;
     
 private:
     void drawGizmos();

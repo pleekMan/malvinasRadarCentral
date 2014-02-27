@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "RingManager.h"
 
+
+
 class testApp : public ofBaseApp{
 
 	public:
@@ -21,5 +23,9 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     RingManager ringManager;
+    
+    bool pause;
+    
+    ofImage backImage;
 		
 };

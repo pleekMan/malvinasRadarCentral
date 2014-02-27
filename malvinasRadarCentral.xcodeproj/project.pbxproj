@@ -33,6 +33,7 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F5B89DB418BE339300810D2C /* Pin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5B89DB218BE339300810D2C /* Pin.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		EC21F74B02A248A84F81744E /* ofxAnimatableObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableObject.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableObject.h; sourceTree = SOURCE_ROOT; };
+		F5B89DB218BE339300810D2C /* Pin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pin.cpp; sourceTree = "<group>"; };
+		F5B89DB318BE339300810D2C /* Pin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pin.h; sourceTree = "<group>"; };
 		F7CFEE77982205D3F1496C03 /* ofxAnimatable.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimatable.cpp; path = ../../../addons/ofxAnimatable/src/ofxAnimatable.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -237,6 +240,8 @@
 				CE500C2218B563FA002C5E5F /* Ring.h */,
 				CE500C2418B56A6E002C5E5F /* RingManager.cpp */,
 				CE500C2518B56A6E002C5E5F /* RingManager.h */,
+				F5B89DB218BE339300810D2C /* Pin.cpp */,
+				F5B89DB318BE339300810D2C /* Pin.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -345,6 +350,7 @@
 				BC054B7D3B48B395B1D87F2E /* ofxAnimatableOfPoint.cpp in Sources */,
 				CE500C2318B563FA002C5E5F /* Ring.cpp in Sources */,
 				CE500C2618B56A6E002C5E5F /* RingManager.cpp in Sources */,
+				F5B89DB418BE339300810D2C /* Pin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

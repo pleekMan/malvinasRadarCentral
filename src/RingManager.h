@@ -12,6 +12,7 @@
 #include <iostream>
 #include "ofMain.h"
 #include "Ring.h"
+#include "Pin.h"
 
 
 
@@ -25,16 +26,26 @@ public:
     RingManager(){};
     
     void setup();
+    void update(int mX, int mY);
     void draw();
     
     void setRadius(float newRadius);
-    void checkRingsDragged(ofPoint pointer);
+    int checkRingsDragged(ofPoint pointer);
+    //void startDrag(int _ring);
+    void startDrag(ofPoint pointer);
+    void stopDrag();
     
     Ring ring01;
     vector<Ring> rings;
+    vector <Pin> pins;
+    vector <ofPolyline> navigatorHotSpot;
     
 private:
     
     void createRings();
+    void createHotSpots(int size);
+    bool isOnTopOfPair(int currentRing);
+    void avoidPair(int currentRing);
+    
     
 };
