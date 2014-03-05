@@ -33,7 +33,15 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F5AB4FA818C79CEF00D620E4 /* ContentHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9718C79CEF00D620E4 /* ContentHolder.cpp */; };
+		F5AB4FA918C79CEF00D620E4 /* FunkyRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9918C79CEF00D620E4 /* FunkyRect.cpp */; };
+		F5AB4FAB18C79CEF00D620E4 /* Navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9C18C79CEF00D620E4 /* Navigator.cpp */; };
+		F5AB4FAC18C79CEF00D620E4 /* Stripper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9E18C79CEF00D620E4 /* Stripper.cpp */; };
+		F5AB4FAF18C79CEF00D620E4 /* TriangleBlast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4FA418C79CEF00D620E4 /* TriangleBlast.cpp */; };
+		F5AB4FB018C79CEF00D620E4 /* Wave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4FA618C79CEF00D620E4 /* Wave.cpp */; };
 		F5B89DB418BE339300810D2C /* Pin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5B89DB218BE339300810D2C /* Pin.cpp */; };
+		F5E2938118C775CA007D01ED /* Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5E2937F18C775CA007D01ED /* Loader.cpp */; };
+		F5E293CD18C78FA2007D01ED /* ofxScrollable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5E293C318C78FA2007D01ED /* ofxScrollable.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +77,6 @@
 /* Begin PBXFileReference section */
 		1C9E4AC6CF4626BA74F7E994 /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimatableFloat.cpp; path = ../../../addons/ofxAnimatable/src/ofxAnimatableFloat.cpp; sourceTree = SOURCE_ROOT; };
 		36B9B6CD565C4C6A5BE96680 /* ofxAnimatable.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatable.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatable.h; sourceTree = SOURCE_ROOT; };
-		42C751A962FC831CA18E8237 /* ofxAnimatableImageMasked.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableImageMasked.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableImageMasked.h; sourceTree = SOURCE_ROOT; };
 		5A6936A5770BEB310F3826AD /* ofxAnimatableOfColor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableOfColor.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableOfColor.h; sourceTree = SOURCE_ROOT; };
 		5FCA34E402E9C3A0C48F9FA9 /* ofxAnimatableOfPoint.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableOfPoint.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableOfPoint.h; sourceTree = SOURCE_ROOT; };
 		6C6A6CF2AD309C3B58922071 /* ofxAnimatableFloat.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableFloat.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableFloat.h; sourceTree = SOURCE_ROOT; };
@@ -104,8 +111,25 @@
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		EC21F74B02A248A84F81744E /* ofxAnimatableObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableObject.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableObject.h; sourceTree = SOURCE_ROOT; };
+		F5AB4F8118C79C5900D620E4 /* ofxAnimatableObjectMasked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxAnimatableObjectMasked.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableObjectMasked.h; sourceTree = "<group>"; };
+		F5AB4F9718C79CEF00D620E4 /* ContentHolder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ContentHolder.cpp; path = Navigator/ContentHolder.cpp; sourceTree = "<group>"; };
+		F5AB4F9818C79CEF00D620E4 /* ContentHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentHolder.h; path = Navigator/ContentHolder.h; sourceTree = "<group>"; };
+		F5AB4F9918C79CEF00D620E4 /* FunkyRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FunkyRect.cpp; path = Navigator/FunkyRect.cpp; sourceTree = "<group>"; };
+		F5AB4F9A18C79CEF00D620E4 /* FunkyRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FunkyRect.h; path = Navigator/FunkyRect.h; sourceTree = "<group>"; };
+		F5AB4F9C18C79CEF00D620E4 /* Navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Navigator.cpp; path = Navigator/Navigator.cpp; sourceTree = "<group>"; };
+		F5AB4F9D18C79CEF00D620E4 /* Navigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Navigator.h; path = Navigator/Navigator.h; sourceTree = "<group>"; };
+		F5AB4F9E18C79CEF00D620E4 /* Stripper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Stripper.cpp; path = Navigator/Stripper.cpp; sourceTree = "<group>"; };
+		F5AB4F9F18C79CEF00D620E4 /* Stripper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stripper.h; path = Navigator/Stripper.h; sourceTree = "<group>"; };
+		F5AB4FA418C79CEF00D620E4 /* TriangleBlast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TriangleBlast.cpp; path = Navigator/TriangleBlast.cpp; sourceTree = "<group>"; };
+		F5AB4FA518C79CEF00D620E4 /* TriangleBlast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleBlast.h; path = Navigator/TriangleBlast.h; sourceTree = "<group>"; };
+		F5AB4FA618C79CEF00D620E4 /* Wave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Wave.cpp; path = Navigator/Wave.cpp; sourceTree = "<group>"; };
+		F5AB4FA718C79CEF00D620E4 /* Wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Wave.h; path = Navigator/Wave.h; sourceTree = "<group>"; };
 		F5B89DB218BE339300810D2C /* Pin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pin.cpp; sourceTree = "<group>"; };
 		F5B89DB318BE339300810D2C /* Pin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pin.h; sourceTree = "<group>"; };
+		F5E2937F18C775CA007D01ED /* Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Loader.cpp; sourceTree = "<group>"; };
+		F5E2938018C775CA007D01ED /* Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loader.h; sourceTree = "<group>"; };
+		F5E293C318C78FA2007D01ED /* ofxScrollable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxScrollable.cpp; sourceTree = "<group>"; };
+		F5E293C418C78FA2007D01ED /* ofxScrollable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxScrollable.h; sourceTree = "<group>"; };
 		F7CFEE77982205D3F1496C03 /* ofxAnimatable.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimatable.cpp; path = ../../../addons/ofxAnimatable/src/ofxAnimatable.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -148,11 +172,11 @@
 		B8118C79E563998DA9D23B17 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				F5AB4F8118C79C5900D620E4 /* ofxAnimatableObjectMasked.h */,
 				F7CFEE77982205D3F1496C03 /* ofxAnimatable.cpp */,
 				36B9B6CD565C4C6A5BE96680 /* ofxAnimatable.h */,
 				1C9E4AC6CF4626BA74F7E994 /* ofxAnimatableFloat.cpp */,
 				6C6A6CF2AD309C3B58922071 /* ofxAnimatableFloat.h */,
-				42C751A962FC831CA18E8237 /* ofxAnimatableImageMasked.h */,
 				EC21F74B02A248A84F81744E /* ofxAnimatableObject.h */,
 				777D89F9EECAC3FE2405D5D1 /* ofxAnimatableOfColor.cpp */,
 				5A6936A5770BEB310F3826AD /* ofxAnimatableOfColor.h */,
@@ -165,6 +189,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				F5E293AD18C78FA2007D01ED /* ofxScrollable */,
 				8D83D7AC476703EBECC1932D /* ofxAnimatable */,
 			);
 			name = addons;
@@ -233,15 +258,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				CE500C2118B563FA002C5E5F /* Ring.cpp */,
-				CE500C2218B563FA002C5E5F /* Ring.h */,
-				CE500C2418B56A6E002C5E5F /* RingManager.cpp */,
-				CE500C2518B56A6E002C5E5F /* RingManager.h */,
-				F5B89DB218BE339300810D2C /* Pin.cpp */,
-				F5B89DB318BE339300810D2C /* Pin.h */,
+				F5E2938318C77962007D01ED /* Navigator */,
+				F5E2938218C77944007D01ED /* Rings */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -253,6 +271,61 @@
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		F5E2938218C77944007D01ED /* Rings */ = {
+			isa = PBXGroup;
+			children = (
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				CE500C2118B563FA002C5E5F /* Ring.cpp */,
+				CE500C2218B563FA002C5E5F /* Ring.h */,
+				CE500C2418B56A6E002C5E5F /* RingManager.cpp */,
+				CE500C2518B56A6E002C5E5F /* RingManager.h */,
+				F5B89DB218BE339300810D2C /* Pin.cpp */,
+				F5B89DB318BE339300810D2C /* Pin.h */,
+				F5E2937F18C775CA007D01ED /* Loader.cpp */,
+				F5E2938018C775CA007D01ED /* Loader.h */,
+			);
+			name = Rings;
+			sourceTree = "<group>";
+		};
+		F5E2938318C77962007D01ED /* Navigator */ = {
+			isa = PBXGroup;
+			children = (
+				F5AB4F9718C79CEF00D620E4 /* ContentHolder.cpp */,
+				F5AB4F9818C79CEF00D620E4 /* ContentHolder.h */,
+				F5AB4F9918C79CEF00D620E4 /* FunkyRect.cpp */,
+				F5AB4F9A18C79CEF00D620E4 /* FunkyRect.h */,
+				F5AB4F9D18C79CEF00D620E4 /* Navigator.h */,
+				F5AB4F9C18C79CEF00D620E4 /* Navigator.cpp */,
+				F5AB4F9E18C79CEF00D620E4 /* Stripper.cpp */,
+				F5AB4F9F18C79CEF00D620E4 /* Stripper.h */,
+				F5AB4FA418C79CEF00D620E4 /* TriangleBlast.cpp */,
+				F5AB4FA518C79CEF00D620E4 /* TriangleBlast.h */,
+				F5AB4FA618C79CEF00D620E4 /* Wave.cpp */,
+				F5AB4FA718C79CEF00D620E4 /* Wave.h */,
+			);
+			name = Navigator;
+			sourceTree = "<group>";
+		};
+		F5E293AD18C78FA2007D01ED /* ofxScrollable */ = {
+			isa = PBXGroup;
+			children = (
+				F5E293C218C78FA2007D01ED /* src */,
+			);
+			name = ofxScrollable;
+			path = ../../../addons/ofxScrollable;
+			sourceTree = "<group>";
+		};
+		F5E293C218C78FA2007D01ED /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F5E293C318C78FA2007D01ED /* ofxScrollable.cpp */,
+				F5E293C418C78FA2007D01ED /* ofxScrollable.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +424,14 @@
 				CE500C2318B563FA002C5E5F /* Ring.cpp in Sources */,
 				CE500C2618B56A6E002C5E5F /* RingManager.cpp in Sources */,
 				F5B89DB418BE339300810D2C /* Pin.cpp in Sources */,
+				F5E2938118C775CA007D01ED /* Loader.cpp in Sources */,
+				F5E293CD18C78FA2007D01ED /* ofxScrollable.cpp in Sources */,
+				F5AB4FA818C79CEF00D620E4 /* ContentHolder.cpp in Sources */,
+				F5AB4FA918C79CEF00D620E4 /* FunkyRect.cpp in Sources */,
+				F5AB4FAB18C79CEF00D620E4 /* Navigator.cpp in Sources */,
+				F5AB4FAC18C79CEF00D620E4 /* Stripper.cpp in Sources */,
+				F5AB4FAF18C79CEF00D620E4 /* TriangleBlast.cpp in Sources */,
+				F5AB4FB018C79CEF00D620E4 /* Wave.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

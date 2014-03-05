@@ -19,7 +19,7 @@ void testApp::setup(){
 void testApp::update(){
     if (!pause) {
         ringManager.update(mouseX, mouseY);
-    
+        
     }
 
 }

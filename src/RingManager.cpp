@@ -9,7 +9,7 @@
 #include "RingManager.h"
 
 #define CENTER ofPoint(ofGetWindowWidth() * 0.5, ofGetWindowHeight() * 0.5)
-#define RING_COUNT 5 // MAX 12
+#define RING_COUNT 1 // MAX 12
 #define RING_WIDTH 20
 
 void RingManager::setup(){
@@ -36,6 +36,22 @@ void RingManager::update(int mX, int mY){
     
     for (int i=0; i < pins.size(); i++) {
         pins[i].update(mX, mY);
+    }
+    
+    for (int i=0; i < loaders.size(); i++) {
+        loaders[i].update();
+        
+        if (loaders[i].isFinished()) {
+            launchNavigator(loaders[i].getNavigatorLink(), loaders[i].getQuadrant());
+            loaders.erase(loaders.begin() + i);
+        }
+        if (loaders[i].hasReturned()) {
+            loaders.erase(loaders.begin() + i);
+        }
+    }
+    
+    for (int i=0; i < navigators.size(); i++) {
+        navigators[i].update(1 / ofGetFrameRate());
     }
 
     
@@ -65,8 +81,8 @@ void RingManager::draw(){
     // DRAW MOUSE ANGLE - END
     
     // ANGLE BTW RINGS - BEGIN
-    
-     ofDrawBitmapString("Angle BTW Rings: " + ofToString(abs(rings[0].angle - rings[1].angle)), ofGetAppPtr() -> mouseX, ofGetAppPtr() -> mouseY + 20);
+    //int ringModulo = (int)rings[0].angle % 360;
+    //ofDrawBitmapString("Angle Modulo: " + ofToString(ringModulo), ofGetAppPtr() -> mouseX, ofGetAppPtr() -> mouseY + 20);
     
     // ANGLE BTW RINGS - END
     
@@ -88,7 +104,14 @@ void RingManager::draw(){
     for (int i=0; i < pins.size(); i++) {
         pins[i].draw();
     }
+    
+    for (int i=0; i < loaders.size(); i++) {
+        loaders[i].draw();
+    }
 
+    for (int i=0; i < navigators.size(); i++) {
+        navigators[i].draw();
+    }
     
 }
 
@@ -110,7 +133,7 @@ void RingManager::createRings(){
         float currentRadius = 0;
         currentRadius = centerBaseOffset + (radiusIncrement);
         
-        rings[i].setup(currentPath, CENTER, currentRadius);
+        rings[i].setup(currentPath, CENTER, currentRadius, "Navigator_" + ofToString(i));
         
         // 2 RINGS PER LAYER
         /*
@@ -200,24 +223,135 @@ void RingManager::startDrag(ofPoint pointer){
                 rings[i].setDragging(true);
             }
             
+            // PIN SHIT
+            /*
             Pin pin;
             pin.setData(i, "Drag ta tha corner, biotch..!!");
             pins.push_back(pin);
             break; // ONLY CHECKING FOR ONE POINTER
+             */
             
+            
+            // LOADERS
+            ofPoint pointer = ofPoint(ofGetMouseX(), ofGetMouseY());
+            bool loaderCaught = false;
+            
+            // CHECK IF LOADER AT QUADRANT IS STILL ACTIVE (FADING OUT), AND REVERSE
+            for (int i=0; i < loaders.size(); i++) {
+                if (loaders[i].getQuadrant() == atQuadrant(pointer)) {
+                    loaders[i].toggleProgressDirection();
+                    loaderCaught = true;
+                } else {
+                    loaderCaught = false;
+                }
+            }
+            
+            // IF NO ACTIVE LOADERS ARE AT A QUADRANT, CREATE
+            if (!loaderCaught) {
+                Loader loader;
+                loader.setup(ofPoint(ofGetWidth() * 0.5, ofGetWidth() * 0.5), atQuadrant(pointer), "Navigator_" + ofToString(i));
+                loaders.push_back(loader);
+            }
+            
+            
+            //launchNavigator(i, 2);
+            
+        }
+    }
+    
+    for (int i=0; i < navigators.size(); i++) {
+        if (navigators[i].closePressed(pointer.x, pointer.y)) {
+            quitNavigator(&navigators[i]);
         }
     }
     
     
 }
 
+
+void RingManager::launchNavigator(string navigatorReference, int atQuadrant){
+    
+    Navigator navigator;
+    
+    ofPoint targetPos;
+
+    switch (atQuadrant) {
+        case 0:
+            targetPos = ofPoint(10,10);
+            break;
+        case 1:
+            targetPos = ofPoint(ofGetWidth() * 0.5 ,10);
+            break;
+        case 2:
+            targetPos = ofPoint(ofGetWidth() - 0.5, ofGetHeight() * 0.5);
+            break;
+        case 3:
+            targetPos = ofPoint(10,ofGetHeight() * 0.5);
+            break;
+        default:
+            break;
+    }
+    
+    
+    navigator.setup("Navigator_0", targetPos);
+    navigator.fbo.setPosition(ofPoint(ofGetWidth() * 0.5, ofGetHeight() * 0.5));
+    navigator.fbo.setSize(0.);
+    navigator.fbo.size.setCurve(EASE_OUT);
+    
+    navigator.fbo.size.animateTo(1.);
+    navigator.fbo.position.animateTo(targetPos);
+    navigator.fbo.color.animateToAlpha(255);
+    navigator.appear(0.);
+    
+    navigators.push_back(navigator);
+    
+}
+
+void RingManager::quitNavigator(Navigator* navigator){
+    
+    navigator->fbo.size.animateTo(0.);
+    navigator->fbo.position.animateTo(navigator->fbo.position.getCurrentPosition());
+    navigator->fbo.color.animateToAlpha(0);
+    navigator->disappear();
+}
+
+int RingManager::atQuadrant(ofPoint point){
+    if (point.x < ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5) {
+        return 0;
+    } else if (point.x > ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5){
+        return 1;
+    } else if (point.x > ofGetWidth() * 0.5 && point.y > ofGetHeight() * 0.5){
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+
 void RingManager::stopDrag(){
     
     for (int i=0; i < RING_COUNT; i++) {
-        rings[i].setDragging(false);
-        rings[i].setVelocity(rings[i].normalVelocity);
+        
+        // CHECK IF IT'S BEING DRAGGED AND POINTER IS INSIDE
+        if (rings[i].isDragging()){// && rings[i].inside(ofPoint(ofGetMouseX(), ofGetMouseY()))) {
+            
+            rings[i].setDragging(false);
+            rings[i].setVelocity(rings[i].normalVelocity);
+            
+            for (int j=0; j < loaders.size(); j++) {
+                if (loaders[j].getNavigatorLink().compare(rings[i].getNavigatorLink()) == 0) {
+                    loaders[j].toggleProgressDirection();
+                }
+            }
+            
+        }
+        
+        
     }
     
+    
+    
+    /*
     //  CHECK PINS INSIDE QUADRANTS
     for (int i=0; i < pins.size(); i++) {
         for (int j=0; j < navigatorHotSpot.size(); j++) {
@@ -228,6 +362,7 @@ void RingManager::stopDrag(){
         }
         pins.erase(pins.begin() + i);
     }
+    */
     
 }
 
@@ -244,7 +379,8 @@ bool RingManager::isInsideAnyRing(ofPoint pointer){
     }
     
 }
-*/
+ */
+
 
 bool RingManager::isOnTopOfPair(int currentRing){
     

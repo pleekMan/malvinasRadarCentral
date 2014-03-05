@@ -21,7 +21,7 @@ class Ring {
 public:
     Ring(){};
     
-    void setup(string imagePath, ofPoint _ringCenter, float _radius);
+    void setup(string imagePath, ofPoint _ringCenter, float _radius, string _navigatorLink);
     void update(int mX, int mY);
     void draw();
     
@@ -30,7 +30,9 @@ public:
     bool inside(ofPoint pointer);
     void setDragging(bool _dragging);
     bool isDragging();
+    string getNavigatorLink();
     
+    string navigatorLink;
     ofPoint ringCenter;
     float angle;
     ofxAnimatableFloat angleTweener;
@@ -40,7 +42,7 @@ public:
     float velocity;
     float radius;
     ofImage ringImage;
-    bool dragging = false;
+    bool dragging;
     
 private:
     void drawGizmos();

@@ -11,15 +11,18 @@
 #define MASS 1.
 #define DAMPING 10.
 
-void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius){
+void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius, string _navigatorLink){
     
     ringImage.loadImage(imagePath);
     ringImage.setAnchorPercent(0.5, 1.);
     
+    navigatorLink = _navigatorLink;
+    
     radius = _radius;
     ringCenter = _ringCenter;
-    angle = ofRandom(360);
+    angle = ofRandom(360, 360 * 10);
     angleDragOffset = 0;
+    dragging = false;
     
     angleTweener.setDuration(0.5);
     angleTweener.setCurve(EASE_IN_EASE_OUT);
@@ -50,8 +53,12 @@ void Ring::update(int mX, int mY){
         angle += velocity;
         
         // CONSTRAIN TO 0 - 360
-        if(angle > 360)angle = 0;
-        if (angle < 0)angle = 360;
+        //if(angle > 360)angle = 0;
+        //if (angle < 0)angle = 360;
+        
+        if(angle > (360 * 1000) || angle < (-360 * 1000)){
+            angle = 0;
+        }
         
        
         
@@ -65,11 +72,14 @@ void Ring::update(int mX, int mY){
         
         float mouseAngle = ringVector.angle(mouseVector);
         mouseAngle = (mouseAngle < 0) ? mouseAngle + 360:mouseAngle;
+        
+        //angle = (int)angle % 360;
        
         
         
         float dt=1./ofGetFrameRate();
-        float accel=mouseAngle - angle;
+        float accel = mouseAngle - ((int)angle % 360);
+        //float accel = mouseAngle - angle;
         accel*=(K/MASS);
         accel-=(DAMPING/MASS) * velocity;
         velocity += (accel*dt);
@@ -77,8 +87,8 @@ void Ring::update(int mX, int mY){
         
         
         // CONSTRAIN TO 0 - 360
-        angle = (angle > 360)?angle -= 360:angle;
-        angle = (angle < 0) ? angle + 360:angle;
+        //angle = (angle > 360)?angle -= 360:angle;
+        //angle = (angle < 0) ? angle + 360:angle;
         
 
     }
@@ -141,6 +151,7 @@ bool Ring::inside(ofPoint pointer){
     if (pointerDistance > radius - 20 && pointerDistance < radius){
         
         
+        /*
         // MOUSE ANGLE CORRECTION 
         if(abs(mouseAngle-angle)>180){
             if((angle-mouseAngle)>0){
@@ -150,13 +161,15 @@ bool Ring::inside(ofPoint pointer){
                 mouseAngle-=360;
             }
         }
+         */
+         
         
         float lowSide = (int)(angle + halfAngularLimit);
         float highSide = (int)(angle - halfAngularLimit);
         
         // CHECK ANGULAR DISTANCE
-        if(mouseAngle < lowSide && mouseAngle > highSide) {
-            angleDragOffset = angle - ringVector.angle(mouseVector);
+        if(mouseAngle < ((int)lowSide % 360) && mouseAngle > ((int)highSide % 360)) {
+            //angleDragOffset = angle - ringVector.angle(mouseVector);
             //cout << "Angle Offset: " << ofToString(angleDragOffset) << endl;
             return true;
         } else {
@@ -174,6 +187,10 @@ void Ring::setDragging(bool _dragging){
 
 bool Ring::isDragging(){
     return dragging;
+}
+
+string Ring::getNavigatorLink(){
+    return navigatorLink;
 }
 
 
@@ -204,8 +221,11 @@ void Ring::drawGizmos(){
         ofLine(0,0,0,radius);
     ofTranslate(0, radius);
         ofRect(0, 0, 5, 5);
-        ofSetColor(0, 0, 255);
+        ofSetColor(255, 0, 0);
         ofDrawBitmapString(ofToString(angle), 0,20);
+        int ringModulo = (int)angle % 360;
+        ofDrawBitmapString("Angle %: " + ofToString(ringModulo), 0, 40);
+
     
     ofPopMatrix();
     

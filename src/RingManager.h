@@ -13,8 +13,8 @@
 #include "ofMain.h"
 #include "Ring.h"
 #include "Pin.h"
-
-
+#include "Navigator.h"
+#include "Loader.h"
 
 #endif /* defined(__malvinasRadarCentral__RingManager__) */
 
@@ -40,12 +40,18 @@ public:
     vector <Pin> pins;
     vector <ofPolyline> navigatorHotSpot;
     
+    vector <Loader> loaders;
+    vector <Navigator> navigators;
+    
 private:
     
     void createRings();
     void createHotSpots(int size);
     bool isOnTopOfPair(int currentRing);
     void avoidPair(int currentRing);
+    void launchNavigator(string navigatorReference, int atQuadrant);
+    void quitNavigator(Navigator* navigator);
+    int atQuadrant (ofPoint point);
     
     
 };
