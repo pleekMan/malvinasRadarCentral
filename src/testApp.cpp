@@ -31,6 +31,8 @@ void testApp::draw(){
 
     ringManager.draw();
     
+    ofDrawBitmapString("X: " + ofToString(mouseX) + " / Y: " + ofToString(mouseY), mouseX, mouseY + 30);
+    
     //ofDrawBitmapString("LowSide: " + ofToString((int)(ringManager.rings[0].angle + ringManager.rings[0].halfAngularLimit)), mouseX, mouseY + 40);
     //ofDrawBitmapString("HighSide: " + ofToString((int)(ringManager.rings[0].angle - ringManager.rings[0].halfAngularLimit)), mouseX, mouseY + 55);
 
@@ -64,13 +66,14 @@ void testApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-    /*
-    if(ringManager.checkRingsDragged(ofPoint(x,y)) != -1){
-        ringManager.startDrag(ringManager.checkRingsDragged(ofPoint(x,y)));
-    }
-     */
     
     ringManager.startDrag(ofPoint(x,y));
+    
+    /*
+    for (int i=0; ringManager.navigators.size(); i++) {
+        ringManager.navigators[i].checkClick(x, y);
+    }
+     */
 }
 
 //--------------------------------------------------------------

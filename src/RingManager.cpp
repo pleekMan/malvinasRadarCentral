@@ -9,14 +9,13 @@
 #include "RingManager.h"
 
 #define CENTER ofPoint(ofGetWindowWidth() * 0.5, ofGetWindowHeight() * 0.5)
-#define RING_COUNT 1 // MAX 12
+#define RING_COUNT 10 // MAX 10
 #define RING_WIDTH 20
 
 void RingManager::setup(){
     
     createRings();
     createHotSpots(300);
-    
 
     
 }
@@ -38,21 +37,33 @@ void RingManager::update(int mX, int mY){
         pins[i].update(mX, mY);
     }
     
+    // LOADERS
+    
     for (int i=0; i < loaders.size(); i++) {
         loaders[i].update();
         
         if (loaders[i].isFinished()) {
             launchNavigator(loaders[i].getNavigatorLink(), loaders[i].getQuadrant());
+            loaders[i].disappear();
             loaders.erase(loaders.begin() + i);
         }
         if (loaders[i].hasReturned()) {
+            loaders[i].disappear();
             loaders.erase(loaders.begin() + i);
         }
+        
+        /*
+        if (loaders[i].isFinishedAnimating()){
+            loaders.erase(loaders.begin() + i);
+        }
+         */
     }
     
     for (int i=0; i < navigators.size(); i++) {
         navigators[i].update(1 / ofGetFrameRate());
     }
+    
+    //cout << "Loader Count: " + ofToString(loaders.size()) << endl;
 
     
 }
@@ -118,7 +129,7 @@ void RingManager::draw(){
 
 void RingManager::createRings(){
     
-    float centerBaseOffset = 180;
+    float centerBaseOffset = 140;
     float radiusIncrement = 0;
     
     for (int i=0; i < RING_COUNT; i++) {
@@ -128,7 +139,7 @@ void RingManager::createRings(){
     
     for (int i=0; i < RING_COUNT; i++) {
         
-        string currentPath = "rings/ring_" + ofToString(i) + ".png";
+        string currentPath = "rings/ring_" + ofToString(i);
         
         float currentRadius = 0;
         currentRadius = centerBaseOffset + (radiusIncrement);
@@ -211,16 +222,25 @@ int RingManager::checkRingsDragged(ofPoint pointer){
 
 void RingManager::startDrag(ofPoint pointer){
     
-
+    /*
+    if(pointer.x > (ofGetWidth() * 0.5)){
+        pointerStartAtRightSide = true;
+    } else {
+        pointerStartAtRightSide = false;
+    }
+     */
     
     for (int i=0; i < RING_COUNT; i++) {
         
         if(rings[i].inside(pointer)){
             
-            cout << "Ring Pressed: " << ofToString(i) << endl;
+            //cout << "Ring Pressed: " << ofToString(i) << endl;
 
             if(!rings[i].isDragging()){
                 rings[i].setDragging(true);
+                
+                rings[i].ringImageOn.color.setRepeatType(LOOP_BACK_AND_FORTH);
+                rings[i].ringImageOn.color.animateTo(ofColor(255,255));
             }
             
             // PIN SHIT
@@ -262,71 +282,12 @@ void RingManager::startDrag(ofPoint pointer){
     for (int i=0; i < navigators.size(); i++) {
         if (navigators[i].closePressed(pointer.x, pointer.y)) {
             quitNavigator(&navigators[i]);
+            //navigators.erase(navigators.begin() + i);
         }
     }
     
     
 }
-
-
-void RingManager::launchNavigator(string navigatorReference, int atQuadrant){
-    
-    Navigator navigator;
-    
-    ofPoint targetPos;
-
-    switch (atQuadrant) {
-        case 0:
-            targetPos = ofPoint(10,10);
-            break;
-        case 1:
-            targetPos = ofPoint(ofGetWidth() * 0.5 ,10);
-            break;
-        case 2:
-            targetPos = ofPoint(ofGetWidth() - 0.5, ofGetHeight() * 0.5);
-            break;
-        case 3:
-            targetPos = ofPoint(10,ofGetHeight() * 0.5);
-            break;
-        default:
-            break;
-    }
-    
-    
-    navigator.setup("Navigator_0", targetPos);
-    navigator.fbo.setPosition(ofPoint(ofGetWidth() * 0.5, ofGetHeight() * 0.5));
-    navigator.fbo.setSize(0.);
-    navigator.fbo.size.setCurve(EASE_OUT);
-    
-    navigator.fbo.size.animateTo(1.);
-    navigator.fbo.position.animateTo(targetPos);
-    navigator.fbo.color.animateToAlpha(255);
-    navigator.appear(0.);
-    
-    navigators.push_back(navigator);
-    
-}
-
-void RingManager::quitNavigator(Navigator* navigator){
-    
-    navigator->fbo.size.animateTo(0.);
-    navigator->fbo.position.animateTo(navigator->fbo.position.getCurrentPosition());
-    navigator->fbo.color.animateToAlpha(0);
-    navigator->disappear();
-}
-
-int RingManager::atQuadrant(ofPoint point){
-    if (point.x < ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5) {
-        return 0;
-    } else if (point.x > ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5){
-        return 1;
-    } else if (point.x > ofGetWidth() * 0.5 && point.y > ofGetHeight() * 0.5){
-        return 2;
-    } else {
-        return 3;
-    }
-}
-
 
 void RingManager::stopDrag(){
     
@@ -336,7 +297,10 @@ void RingManager::stopDrag(){
         if (rings[i].isDragging()){// && rings[i].inside(ofPoint(ofGetMouseX(), ofGetMouseY()))) {
             
             rings[i].setDragging(false);
-            rings[i].setVelocity(rings[i].normalVelocity);
+            //rings[i].setVelocity(rings[i].normalVelocity);
+            
+            rings[i].ringImageOn.color.setRepeatType(PLAY_ONCE);
+            rings[i].ringImageOn.color.animateTo(ofColor(255,0));
             
             for (int j=0; j < loaders.size(); j++) {
                 if (loaders[j].getNavigatorLink().compare(rings[i].getNavigatorLink()) == 0) {
@@ -352,19 +316,91 @@ void RingManager::stopDrag(){
     
     
     /*
-    //  CHECK PINS INSIDE QUADRANTS
-    for (int i=0; i < pins.size(); i++) {
-        for (int j=0; j < navigatorHotSpot.size(); j++) {
-            if (navigatorHotSpot[j].inside(pins[i].position)) {
-                cout << "Trigger Navigator at Quadrant: " << ofToString(j);
-                //pins.erase(pins.begin() + i);
-            }
-        }
-        pins.erase(pins.begin() + i);
-    }
-    */
+     //  CHECK PINS INSIDE QUADRANTS
+     for (int i=0; i < pins.size(); i++) {
+     for (int j=0; j < navigatorHotSpot.size(); j++) {
+     if (navigatorHotSpot[j].inside(pins[i].position)) {
+     cout << "Trigger Navigator at Quadrant: " << ofToString(j);
+     //pins.erase(pins.begin() + i);
+     }
+     }
+     pins.erase(pins.begin() + i);
+     }
+     */
     
 }
+
+
+void RingManager::launchNavigator(string navigatorReference, int atQuadrant){
+    
+    Navigator navigator;
+    
+    ofPoint targetPos;
+    bool upsideDown = false;
+
+    switch (atQuadrant) {
+        case 0:
+            //targetPos = ofPoint(720,720); // 720 = WIDTH OF NAVIGATOR (APROX)
+            targetPos = ofPoint(50,50);
+            upsideDown = true;
+            break;
+        case 1:
+            //targetPos = ofPoint(ofGetWidth() - 10 ,720);
+            targetPos = ofPoint(100,50);
+            upsideDown = true;
+            break;
+        case 2:
+            //targetPos = ofPoint(ofGetWidth() - 720, ofGetHeight() - 360);
+            targetPos = ofPoint(100,100);
+            //upsideDown = true;
+            break;
+        case 3:
+            //targetPos = ofPoint(10, ofGetHeight() - 720);
+            targetPos = ofPoint(50,100);
+            break;
+        default:
+            break;
+    }
+    
+    
+    navigator.setup("Navigator_0", targetPos, upsideDown, targetPos);
+    navigator.fbo.setPosition(ofPoint(ofGetWidth() * 0.5, ofGetHeight() * 0.5));
+    navigator.fbo.setSize(0.);
+    navigator.fbo.size.setCurve(EASE_OUT);
+    navigator.setPosition(targetPos);
+        
+    navigator.fbo.size.animateTo(1.);
+    navigator.fbo.position.animateTo(targetPos);
+    navigator.fbo.color.animateToAlpha(255);
+    navigator.appear(0.);
+    
+    navigators.push_back(navigator);
+    
+}
+
+void RingManager::quitNavigator(Navigator* navigator){
+    
+    navigator->fbo.size.animateTo(0.);
+    navigator->fbo.position.animateTo(navigator->fbo.position.getCurrentPosition());
+    navigator->fbo.color.animateToAlpha(0);
+    navigator->disappear();
+    //delete(navigator);
+}
+
+int RingManager::atQuadrant(ofPoint point){
+    if (point.x < ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5) {
+        return 0;
+    } else if (point.x > ofGetWidth() * 0.5 && point.y < ofGetHeight() * 0.5){
+        return 1;
+    } else if (point.x > ofGetWidth() * 0.5 && point.y > ofGetHeight() * 0.5){
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+
+
 
 /*
 bool RingManager::isInsideAnyRing(ofPoint pointer){
@@ -406,10 +442,10 @@ void RingManager::avoidPair(int currentRing){
     float angleBetween = abs(ringB->angle - ringA->angle);
     
     if (ringA->isDragging()) {
-        cout << "Dragging Ring A" << endl;
+        //cout << "Dragging Ring A" << endl;
         
         if (angleBetween < (ringA -> halfAngularLimit + ringB -> halfAngularLimit)) {
-            cout << "ON TOP :: TO LEFT" << endl;
+            //cout << "ON TOP :: TO LEFT" << endl;
             ringB->setAngle(ringB -> angle - ringA->halfAngularLimit);
         }
     }

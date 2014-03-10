@@ -12,6 +12,7 @@
 #include <iostream>
 #include "ofMain.h"
 #include "ofxAnimatableFloat.h"
+#include "ofxAnimatableObject.h"
 
 #endif /* defined(__malvinasRadarCentral__Ring__) */
 
@@ -40,13 +41,16 @@ public:
     float halfAngularLimit;
     float normalVelocity;
     float velocity;
+    float dvelocity;
     float radius;
     ofImage ringImage;
+    ofxAnimatableObject<ofImage> ringImageOn;
     bool dragging;
     
 private:
     void drawGizmos();
     float calculateHalfAngularLimit();
+    float adaptMouseAngleToRingAngle(float originalMouseAngle);
     
     
 };

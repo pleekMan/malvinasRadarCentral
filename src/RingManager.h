@@ -31,7 +31,6 @@ public:
     
     void setRadius(float newRadius);
     int checkRingsDragged(ofPoint pointer);
-    //void startDrag(int _ring);
     void startDrag(ofPoint pointer);
     void stopDrag();
     

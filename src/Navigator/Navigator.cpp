@@ -8,12 +8,15 @@
 #include "ofMain.h"
 #include "Navigator.h"
 
-void Navigator::setup(string p,ofPoint initPos){
+void Navigator::setup(string p,ofPoint initPos, bool _upsideDown, ofPoint _initScreenOffset){
     path = p;
 
     width = height = 716;
     
+    position = _initScreenOffset;
+    
     visible = false;
+    upsideDown = _upsideDown;
         
     fbo.allocate(width, height);
 
@@ -142,6 +145,8 @@ void Navigator::update(float time){
     ofSetColor(255);
     
     fbo.update(time);
+    
+    //position = fbo.position.getCurrentPosition();
 
     titulo.update(time);
     close.update(time);
@@ -165,8 +170,8 @@ void Navigator::update(float time){
 
     contents[currentContent].update(time);
 
-    swizzer.rotate(ofMap(ofGetFrameNum() % 70, 0, 70, 0, TWO_PI));
-    swizzer.update(time);
+    //swizzer.rotate(ofMap(ofGetFrameNum() % 70, 0, 70, 0, TWO_PI));
+    //swizzer.update(time);
     
     //stripper.update(time);
     triangle.update(time);
@@ -202,6 +207,7 @@ void Navigator::update(float time){
     for(int i=0;i<buttons.size();i++){
         buttons[i].draw();
     }
+    
     contents[currentContent].draw();
 
     //ofNoFill();
@@ -215,7 +221,46 @@ void Navigator::update(float time){
 }
 
 void Navigator::draw(){
+    
+    ofSetColor(255,255,0);
+    ofFill();
+    ofCircle(0, 0, 20);
+    
+    
+    if(upsideDown){
+        ofPushMatrix();
+        //ofTranslate(position);
+        //ofRotate(180);
+    }
+    
+    ofSetColor(255);
+    ofRect(fbo.position.getCurrentPosition() - position, 50, 50);
+    ofSetColor(0);
+    ofRect(fbo.position.getCurrentPosition().x - position.x, fbo.position.getCurrentPosition().y - position.y + 3,53,23);
+    
+    
+    ofSetColor(255,0,0);
+    ofRect(fbo.position.getCurrentPosition(), 50, 50);
+    ofSetColor(100,0,0);
+    ofRect(fbo.position.getCurrentPosition().x,fbo.position.getCurrentPosition().y + 3,50,20);
+    ofSetColor(255);
+    ofDrawBitmapString("fbo " + ofToString(fbo.position.getCurrentPosition().x) + "," + ofToString(fbo.position.getCurrentPosition().y), fbo.position.getCurrentPosition().x,fbo.position.getCurrentPosition().y + 20);
+    
     fbo.draw();
+    
+    
+    if(upsideDown){
+        ofPopMatrix();
+    }
+     
+    
+    ofDrawBitmapString(ofToString(position.x) + " . " + ofToString(position.y), 20,20);
+    ofLine(position.x,position.y, ofGetMouseX(), ofGetMouseY());
+    
+}
+
+void Navigator::setPosition(ofPoint pos){
+    position -= pos;
 }
 
 void Navigator::checkClick(int mx, int my){

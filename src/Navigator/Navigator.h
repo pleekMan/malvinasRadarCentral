@@ -23,11 +23,12 @@ class Navigator{
         Navigator(){};
         ~Navigator(){};
 
-        void setup(string p, ofPoint initPos);
+        void setup(string p, ofPoint initPos, bool _upsideDown, ofPoint _initialScreenOffset);
         void appear(float delay);
         void disappear();
         void update(float time);
         void draw();
+        void setPosition(ofPoint pos);
         void drawMisc();
 
         void checkClick(int mx, int my);
@@ -38,6 +39,7 @@ class Navigator{
     string path;
     int width, height;
     bool visible;
+    bool upsideDown;
 
     ofxAnimatableObject<ofFbo> fbo;
 
@@ -52,13 +54,16 @@ class Navigator{
     int currentContent;
     int nextContent;
     
-    vector< ContentHolder > contents;
+    vector <ContentHolder> contents;
 
-    Wave wave;
-    FunkyRect swizzer;
-    vector <FunkyRect> beepers;
+    //Wave wave;
+    //FunkyRect swizzer;
+    //vector <FunkyRect> beepers;
     ofxAnimatableObject<ofImage> triangle;
     //TriangleBlast triangle;
-    Stripper stripper;    
+    //Stripper stripper;
+    
+    ofPoint initialScreenOffset;
+    ofPoint position;
 
 };

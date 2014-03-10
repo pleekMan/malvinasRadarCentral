@@ -33,6 +33,7 @@
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
+		F5023FB018CA5CE200765301 /* CrossHair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5023FAE18CA5CE200765301 /* CrossHair.cpp */; };
 		F5AB4FA818C79CEF00D620E4 /* ContentHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9718C79CEF00D620E4 /* ContentHolder.cpp */; };
 		F5AB4FA918C79CEF00D620E4 /* FunkyRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9918C79CEF00D620E4 /* FunkyRect.cpp */; };
 		F5AB4FAB18C79CEF00D620E4 /* Navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5AB4F9C18C79CEF00D620E4 /* Navigator.cpp */; };
@@ -111,6 +112,8 @@
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		EC21F74B02A248A84F81744E /* ofxAnimatableObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxAnimatableObject.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableObject.h; sourceTree = SOURCE_ROOT; };
+		F5023FAE18CA5CE200765301 /* CrossHair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CrossHair.cpp; sourceTree = "<group>"; };
+		F5023FAF18CA5CE200765301 /* CrossHair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrossHair.h; sourceTree = "<group>"; };
 		F5AB4F8118C79C5900D620E4 /* ofxAnimatableObjectMasked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxAnimatableObjectMasked.h; path = ../../../addons/ofxAnimatable/src/ofxAnimatableObjectMasked.h; sourceTree = "<group>"; };
 		F5AB4F9718C79CEF00D620E4 /* ContentHolder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ContentHolder.cpp; path = Navigator/ContentHolder.cpp; sourceTree = "<group>"; };
 		F5AB4F9818C79CEF00D620E4 /* ContentHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContentHolder.h; path = Navigator/ContentHolder.h; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				F5B89DB318BE339300810D2C /* Pin.h */,
 				F5E2937F18C775CA007D01ED /* Loader.cpp */,
 				F5E2938018C775CA007D01ED /* Loader.h */,
+				F5023FAE18CA5CE200765301 /* CrossHair.cpp */,
+				F5023FAF18CA5CE200765301 /* CrossHair.h */,
 			);
 			name = Rings;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				F5AB4FAC18C79CEF00D620E4 /* Stripper.cpp in Sources */,
 				F5AB4FAF18C79CEF00D620E4 /* TriangleBlast.cpp in Sources */,
 				F5AB4FB018C79CEF00D620E4 /* Wave.cpp in Sources */,
+				F5023FB018CA5CE200765301 /* CrossHair.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
