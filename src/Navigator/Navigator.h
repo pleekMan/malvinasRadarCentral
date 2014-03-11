@@ -24,6 +24,8 @@ class Navigator{
         ~Navigator(){};
 
         void setup(string p, ofPoint initPos, bool _upsideDown, ofPoint _initialScreenOffset);
+        void setup(string p);
+
         void appear(float delay);
         void disappear();
         void update(float time);

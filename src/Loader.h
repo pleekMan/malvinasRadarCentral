@@ -22,15 +22,15 @@ class Loader {
 public:
     Loader(){};
     
-    void setup(ofPoint position, int _quadrant, string navigatorReference);
+    void setup(ofPoint position, int _quadrant, int _navigatorIdLink);
     void draw();
     void update();
-    void setLinkReference(string NavigatorReference);
+    void setNavigatorLink(int _navigatorId);
     bool isFinished();
     bool hasReturned();
     bool isFinishedAnimating();
     void toggleProgressDirection();
-    string getNavigatorLink();
+    int getNavigatorLink();
     int getQuadrant();
     
     void appear();
@@ -41,7 +41,7 @@ public:
     int progressDirection;
     bool finished;
     int quadrant;
-    string navigatorLink;
+    int navigatorId;
     
     CrossHair crossHair;
     

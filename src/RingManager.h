@@ -44,13 +44,15 @@ public:
     
 private:
     
+    void preLoadNavigatorContent();
     void createRings();
     void createHotSpots(int size);
     bool isOnTopOfPair(int currentRing);
     void avoidPair(int currentRing);
-    void launchNavigator(string navigatorReference, int atQuadrant);
+    void launchNavigator(int navigatorId, int atQuadrant);
     void quitNavigator(Navigator* navigator);
     int atQuadrant (ofPoint point);
+    float time;
     
     
 };

@@ -60,6 +60,8 @@ void Navigator::setup(string p,ofPoint initPos, bool _upsideDown, ofPoint _initS
     for(int i=0; i<buttonsBackG.size(); i++){
         buttonsBackG[i].setup(false, buttons[i].position.getCurrentPosition(), buttons[i].getWidth(), buttons[i].getHeight());
     }
+    
+    fbo.color.setAlphaOnly(0);
 
     currentContent = nextContent = 0;
     
@@ -83,11 +85,76 @@ void Navigator::setup(string p,ofPoint initPos, bool _upsideDown, ofPoint _initS
 
 }
 
+void Navigator::setup(string p){
+    path = p;
+    
+    width = height = 716;
+    
+    //position = _initScreenOffset;
+    
+    visible = false;
+    //upsideDown = _upsideDown;
+    
+    fbo.allocate(width, height);
+    
+    titulo.loadImage(path + "/titulo.png");
+    titulo.setAnchorPercent(0, 0);
+    titulo.setPosition(ofPoint(0, 0));
+    titulo.setColor(255,0);
+    titulo.color.setDuration(1.);
+    titulo.color.setRepeatType(PLAY_ONCE);
+    titulo.color.setCurve(BLINK_AND_FADE_3);
+    
+    close.loadImage(path + "/../closeButton.png");
+    close.setAnchorPercent(0, 0);
+    close.setPosition(ofPoint(650, 10));
+    close.setColor(255,0);
+    close.color.setDuration(1.);
+    close.color.setRepeatType(PLAY_ONCE);
+    close.color.setCurve(BLINK_AND_FADE_3);
+    
+    // BOTONES y CONTENT HOLDERS
+    for(int i=0; ofDirectory::doesDirectoryExist(path + "/Content_" + ofToString(i)); i++){
+        cout<<i<<endl;
+        buttons.push_back(ofxAnimatableObject<ofImage>());
+        contents.push_back(ContentHolder());
+        buttonsBackG.push_back(FunkyRect());
+    }
+    for(int i=0; i<buttons.size(); i++){
+        buttons[i].loadImage(path + "/Content_" + ofToString(i) + "/button.png");
+        buttons[i].setAnchorPercent(0.0, 0.0);
+        buttons[i].setPosition(ofPoint(3, 50 + 32*i));
+        buttons[i].setRotation(ofPoint(0,90,0));
+        buttons[i].rotation.setDuration(0.7);
+        buttons[i].rotation.setRepeatType(PLAY_ONCE);
+        buttons[i].rotation.setCurve(TANH);
+        buttons[i].setColor(255,0);
+        buttons[i].color.setDuration(1.0);
+    }
+    for(int i=0; i<contents.size(); i++){
+        contents[i].setup(path + "/Content_" + ofToString(i),ofPoint(3,150));
+    }
+    for(int i=0; i<buttonsBackG.size(); i++){
+        buttonsBackG[i].setup(false, buttons[i].position.getCurrentPosition(), buttons[i].getWidth(), buttons[i].getHeight());
+    }
+    
+    currentContent = nextContent = 0;
+    
+    triangle.loadImage(path + "/triangle.png");
+    triangle.setAnchorPercent(0.5, 0.5);
+    triangle.setPosition(ofPoint(653, 690, 0));
+    //triangle.position.setDuration(0.5);
+    //triangle.position.setRepeatType(LOOP_BACK_AND_FORTH);
+    triangle.setColor(255,0);
+    
+}
+
 void Navigator::appear(float delay){
     
     visible = true;
 
     titulo.color.animateToAfterDelay(ofColor(255,255),delay);
+    //titulo.color.animateTo(ofColor(255,255));
     close.color.animateToAfterDelay(ofColor(255,255),delay);
     
     delay+=1.;
@@ -134,7 +201,7 @@ void Navigator::disappear(){
         buttonsBackG[i].disappear();;
     }
     
-    visible = false;
+    //visible = false;
     
 }
 
@@ -327,7 +394,8 @@ void Navigator::optionPressed(int selection){
 }
 
 bool Navigator::isVisible(){
-    return visible;
+    // USING fbo ALPHA TO CHECK IF THE ANIMATION IS FINISHED
+    return fbo.color.getCurrentColor().a != 0;
 }
 
 void Navigator::drawMisc(){

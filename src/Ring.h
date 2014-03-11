@@ -22,7 +22,7 @@ class Ring {
 public:
     Ring(){};
     
-    void setup(string imagePath, ofPoint _ringCenter, float _radius, string _navigatorLink);
+    void setup(string imagePath, ofPoint _ringCenter, float _radius);
     void update(int mX, int mY);
     void draw();
     
@@ -51,6 +51,7 @@ private:
     void drawGizmos();
     float calculateHalfAngularLimit();
     float adaptMouseAngleToRingAngle(float originalMouseAngle);
+    float time;
     
     
 };

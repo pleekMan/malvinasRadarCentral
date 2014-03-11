@@ -13,6 +13,8 @@ void testApp::setup(){
     pause = false;
     
     backImage.loadImage("background.png");
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -28,6 +30,8 @@ void testApp::update(){
 void testApp::draw(){
     ofSetColor(255,255);
     backImage.draw(0, 0);
+    
+    //ringManager.rings[4].ringImage.draw(100,100);
 
     ringManager.draw();
     

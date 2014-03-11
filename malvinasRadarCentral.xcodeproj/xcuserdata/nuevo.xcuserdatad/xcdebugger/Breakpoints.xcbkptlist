@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/Navigator/Navigator.cpp"
-         timestampString = "415902953.374206"
+         timestampString = "416256917.271381"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "282"
-         endingLineNumber = "282"
+         startingLineNumber = "349"
+         endingLineNumber = "349"
          landmarkName = "Navigator::checkClick(int mx, int my)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,22 +60,22 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/Navigator/Navigator.cpp"
-         timestampString = "415902953.374206"
+         timestampString = "416256917.271381"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "266"
-         endingLineNumber = "266">
+         startingLineNumber = "333"
+         endingLineNumber = "333">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/Navigator/Navigator.cpp"
-         timestampString = "415903215.214027"
+         timestampString = "416256917.271381"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "239"
-         endingLineNumber = "239"
+         startingLineNumber = "306"
+         endingLineNumber = "306"
          landmarkName = "Navigator::draw()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -132,11 +132,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/RingManager.cpp"
-         timestampString = "416176314.630248"
+         timestampString = "416251568.083349"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "57"
-         endingLineNumber = "57"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
          landmarkName = "RingManager::update(int mX, int mY)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -145,11 +145,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "src/RingManager.cpp"
-         timestampString = "416173687.176622"
+         timestampString = "416251568.083349"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
+         startingLineNumber = "60"
+         endingLineNumber = "60"
          landmarkName = "RingManager::update(int mX, int mY)"
          landmarkType = "5">
       </FileBreakpoint>

@@ -29,7 +29,7 @@ class testApp : public ofBaseApp{
     bool pause;
     
     ofImage backImage;
-    
+    ofImage ringTemp;
     
 		
 };

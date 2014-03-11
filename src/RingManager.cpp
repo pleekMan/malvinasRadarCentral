@@ -9,18 +9,25 @@
 #include "RingManager.h"
 
 #define CENTER ofPoint(ofGetWindowWidth() * 0.5, ofGetWindowHeight() * 0.5)
-#define RING_COUNT 10 // MAX 10
+#define RING_COUNT 1 // MAX 10
 #define RING_WIDTH 20
 
 void RingManager::setup(){
     
+    preLoadNavigatorContent();
     createRings();
-    createHotSpots(300);
+    
+    //createHotSpots(300);
+
 
     
 }
 
 void RingManager::update(int mX, int mY){
+    
+    float t = ofGetElapsedTimef();
+    float dt = t - time;
+    time = t;
     
     for (int i=0; i < RING_COUNT; i++) {
         
@@ -33,9 +40,11 @@ void RingManager::update(int mX, int mY){
         */
     }
     
+    /*
     for (int i=0; i < pins.size(); i++) {
         pins[i].update(mX, mY);
     }
+     */
     
     // LOADERS
     
@@ -60,7 +69,9 @@ void RingManager::update(int mX, int mY){
     }
     
     for (int i=0; i < navigators.size(); i++) {
-        navigators[i].update(1 / ofGetFrameRate());
+         if (navigators[i].isVisible()) {
+             navigators[i].update(dt);
+         }
     }
     
     //cout << "Loader Count: " + ofToString(loaders.size()) << endl;
@@ -70,6 +81,7 @@ void RingManager::update(int mX, int mY){
 
 void RingManager::draw(){
     
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
     
     for (int i=0; i < RING_COUNT; i++) {
         rings[i].draw();
@@ -97,7 +109,7 @@ void RingManager::draw(){
     
     // ANGLE BTW RINGS - END
     
-    
+    /*
     // DRAW HotSpots - BEGIN
     ofNoFill();
     for (int i=0; i < navigatorHotSpot.size(); i++) {
@@ -107,6 +119,7 @@ void RingManager::draw(){
         }
         ofEndShape();
     }
+     */
     
     // DRAW HotSpots - END
     
@@ -120,12 +133,30 @@ void RingManager::draw(){
         loaders[i].draw();
     }
 
+    
     for (int i=0; i < navigators.size(); i++) {
-        navigators[i].draw();
+        if (navigators[i].isVisible()) {
+            navigators[i].draw();
+            cout << "Drawing Nav: " + ofToString(i) << endl;
+        }
     }
+    
     
 }
 
+void RingManager::preLoadNavigatorContent(){
+    
+    for (int i=0; i<RING_COUNT; i++) {
+        Navigator navigator;
+        navigators.push_back(navigator);
+        
+    }
+    
+    for (int i=0; i<RING_COUNT; i++) {
+        navigators[i].setup("Navigator_0");
+    }
+    
+}
 
 void RingManager::createRings(){
     
@@ -144,7 +175,7 @@ void RingManager::createRings(){
         float currentRadius = 0;
         currentRadius = centerBaseOffset + (radiusIncrement);
         
-        rings[i].setup(currentPath, CENTER, currentRadius, "Navigator_" + ofToString(i));
+        rings[i].setup(currentPath, CENTER, currentRadius);
         
         // 2 RINGS PER LAYER
         /*
@@ -269,7 +300,7 @@ void RingManager::startDrag(ofPoint pointer){
             // IF NO ACTIVE LOADERS ARE AT A QUADRANT, CREATE
             if (!loaderCaught) {
                 Loader loader;
-                loader.setup(ofPoint(ofGetWidth() * 0.5, ofGetWidth() * 0.5), atQuadrant(pointer), "Navigator_" + ofToString(i));
+                loader.setup(ofPoint(ofGetWidth() * 0.5, ofGetWidth() * 0.5), atQuadrant(pointer), i);
                 loaders.push_back(loader);
             }
             
@@ -303,7 +334,7 @@ void RingManager::stopDrag(){
             rings[i].ringImageOn.color.animateTo(ofColor(255,0));
             
             for (int j=0; j < loaders.size(); j++) {
-                if (loaders[j].getNavigatorLink().compare(rings[i].getNavigatorLink()) == 0) {
+                if (loaders[j].getNavigatorLink() == i) {
                     loaders[j].toggleProgressDirection();
                 }
             }
@@ -331,9 +362,8 @@ void RingManager::stopDrag(){
 }
 
 
-void RingManager::launchNavigator(string navigatorReference, int atQuadrant){
+void RingManager::launchNavigator(int navigatorId, int atQuadrant){
     
-    Navigator navigator;
     
     ofPoint targetPos;
     bool upsideDown = false;
@@ -363,18 +393,25 @@ void RingManager::launchNavigator(string navigatorReference, int atQuadrant){
     }
     
     
-    navigator.setup("Navigator_0", targetPos, upsideDown, targetPos);
-    navigator.fbo.setPosition(ofPoint(ofGetWidth() * 0.5, ofGetHeight() * 0.5));
-    navigator.fbo.setSize(0.);
-    navigator.fbo.size.setCurve(EASE_OUT);
-    navigator.setPosition(targetPos);
-        
-    navigator.fbo.size.animateTo(1.);
-    navigator.fbo.position.animateTo(targetPos);
-    navigator.fbo.color.animateToAlpha(255);
-    navigator.appear(0.);
+    // USING fbo ALPHA TO CHECK IF THE ANIMATION IS FINISHED
+    // WHEN LAUNCHING, PRESET ALPHA TO ONE SO IT IS VISIBLE RIGHT AWAY FOR THE isVisible() INSIDE THIS UPDATE.
+    navigators[navigatorId].fbo.color.setAlphaOnly(1);
     
-    navigators.push_back(navigator);
+    //navigator.setup("Navigator_0", targetPos, upsideDown, targetPos);
+    navigators[navigatorId].fbo.color.setDuration(1.);
+    navigators[navigatorId].fbo.setPosition(ofPoint(ofGetWidth() * 0.5, ofGetHeight() * 0.5));
+    navigators[navigatorId].fbo.setSize(0.);
+    navigators[navigatorId].fbo.size.setCurve(EASE_OUT);
+    navigators[navigatorId].setPosition(targetPos);
+        
+    navigators[navigatorId].fbo.size.animateTo(1.);
+    navigators[navigatorId].fbo.position.animateTo(targetPos);
+    navigators[navigatorId].fbo.color.animateToAlpha(255);
+    navigators[navigatorId].appear(0.);
+    
+    
+    
+    //navigators.push_back(navigator);
     
 }
 

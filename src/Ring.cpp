@@ -11,7 +11,7 @@
 #define MASS 1.
 #define DAMPING 10.
 
-void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius, string _navigatorLink){
+void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius){
     
     ringImage.loadImage(imagePath + ".png");
     ringImage.setAnchorPercent(0.5, 1.);
@@ -23,7 +23,7 @@ void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius, string _n
     ringImageOn.color.setRepeatType(LOOP_BACK_AND_FORTH);
     
     
-    navigatorLink = _navigatorLink;
+    //navigatorLink = _navigatorLink;
     
     radius = _radius;
     ringCenter = _ringCenter;
@@ -40,11 +40,14 @@ void Ring::setup(string imagePath, ofPoint _ringCenter, float _radius, string _n
     //cout << "halfWidth: " << ringImage.getWidth() * 0.5 << " / ringRadius: " << radius - ringImage.height << " / angle Result: " << halfAngularLimit << endl;
     
     setVelocity(ofRandom(-8, 8));
+    
+    
+    time = 0;
 }
 
 void Ring::update(int mX, int mY){
     
-    ringImageOn.update(1/ofGetFrameRate());
+    ringImageOn.update(1./ofGetFrameRate());
     
     if(!dragging){
         
@@ -58,7 +61,10 @@ void Ring::update(int mX, int mY){
         
         */
         
-        float dt=1./ofGetFrameRate();
+        float t = ofGetElapsedTimef();
+        float dt = t - time;
+        time = t;
+        
         float impulse=normalVelocity-velocity;
         impulse*=(K/MASS);
         impulse-=(DAMPING/MASS)*dvelocity;
@@ -102,7 +108,10 @@ void Ring::update(int mX, int mY){
         
         //cout << "M A: " << mouseAngle << endl;
         
-        float dt=1./ofGetFrameRate();
+        float t = ofGetElapsedTimef();
+        float dt = t - time;
+        time = t;
+        
         float accel = mouseAngle - (angle);
         //float accel = mouseAngle - angle;
         accel*=(K/MASS);
@@ -141,20 +150,14 @@ void Ring::draw(){
     ofTranslate(ringCenter);
     ofRotate(angle);
     ofTranslate(0, radius);
-    
-    //ofEnableAlphaBlending();
-    //ofSetColor(255);
+
     ringImage.draw(0,0);
     ringImageOn.draw();
     
-    //ofDisableAlphaBlending();
-    
-    
-
     
     ofPopMatrix();
     
-    //drawGizmos();
+    drawGizmos();
     
 }
 
@@ -275,5 +278,8 @@ void Ring::drawGizmos(){
 
     
     ofPopMatrix();
+    
+    //ofSetColor(255, 0, 0);
+    //ofLine(ringCenter,ofPoint(ofGetMouseX(), ofGetMouseY()));
     
 }

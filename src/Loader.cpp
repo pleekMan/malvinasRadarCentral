@@ -8,7 +8,7 @@
 
 #include "Loader.h"
 
-void Loader::setup(ofPoint position, int _quadrant, string _navigatorReference){
+void Loader::setup(ofPoint position, int _quadrant, int _navigatorIdLink){
     pos = position;
     progress = 0.;
     progressDirection = 1;
@@ -16,7 +16,7 @@ void Loader::setup(ofPoint position, int _quadrant, string _navigatorReference){
     
     quadrant = _quadrant;
     
-    navigatorLink = _navigatorReference;
+    navigatorId = _navigatorIdLink;
     
     CrossHair crossHair;
     initCrossHair();
@@ -30,8 +30,8 @@ void Loader::setup(ofPoint position, int _quadrant, string _navigatorReference){
     
 }
 
-void Loader::setLinkReference(string _navigatorReference){
-    navigatorLink = _navigatorReference;
+void Loader::setNavigatorLink(int _navigatorId){
+    navigatorId = _navigatorId;
 }
 
 void Loader::update(){
@@ -131,8 +131,8 @@ void Loader::toggleProgressDirection(){
     progressDirection *= -1;
 }
 
-string Loader::getNavigatorLink(){
-    return navigatorLink;
+int Loader::getNavigatorLink(){
+    return navigatorId;
 }
 
 int Loader::getQuadrant(){
@@ -173,7 +173,7 @@ void Loader::drawIcon(){
     loaderBand.setAnchorPercent(0.5, 0.1);
     
     ofPoint topCenter = ofPoint(ofGetMouseX(), ofGetMouseY());
-    float circleSize = 50;
+    float circleSize = 40;
     
     ofSetColor(150,30,30,255);
     ofCircle(topCenter.x, topCenter.y + (loaderBand.getHeight() * 1.2), circleSize * iconScale.getCurrentValue());
